@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Launch Planning",
+    "category": "Growth",
+    "description": "A practical planning package for teams preparing a new digital service.",
+    "price": "$490",
+    "duration": "2 weeks",
+    "color": "indigo",
+    "featured": true
+  },
+  {
+    "name": "Customer Care Setup",
+    "category": "Operations",
+    "description": "A structured support workflow with response guidelines and escalation paths.",
+    "price": "$320",
+    "duration": "10 days",
+    "color": "emerald",
+    "featured": false
+  },
+  {
+    "name": "Market Research Sprint",
+    "category": "Research",
+    "description": "A focused research sprint to understand users, competitors, and market needs.",
+    "price": "$650",
+    "duration": "3 weeks",
+    "color": "amber",
+    "featured": true
+  },
+  {
+    "name": "Social Media Starter",
+    "category": "Marketing",
+    "description": "A simple content and channel plan for a consistent social media presence.",
+    "price": "$280",
+    "duration": "1 week",
+    "color": "rose",
+    "featured": false
+  },
+  {
+    "name": "Process Review",
+    "category": "Operations",
+    "description": "An outside review of internal workflows with clear improvement actions.",
+    "price": "$410",
+    "duration": "2 weeks",
+    "color": "sky",
+    "featured": false
+  },
+  {
+    "name": "Partner Outreach",
+    "category": "Growth",
+    "description": "A targeted outreach package for building relationships with potential partners.",
+    "price": "$560",
+    "duration": "2 weeks",
+    "color": "violet",
+    "featured": false
+  }
+]

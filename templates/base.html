@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A responsive Jinja and Tailwind service catalogue demo." />
+    <title>{% block title %}Northstar Services{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+            },
+            colors: {
+              ink: "#182230",
+              soft: "#f5f7fb"
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body class="bg-soft text-ink antialiased">
+    <header class="border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+        <a href="{{ url_for('index') }}" class="flex items-center gap-3" aria-label="Northstar Services home">
+          <span class="grid h-10 w-10 place-items-center rounded-2xl bg-ink text-lg font-bold text-white">N</span>
+          <span>
+            <span class="block text-sm font-semibold tracking-wide">NORTHSTAR</span>
+            <span class="block text-xs text-slate-500">Jinja / Tailwind demo</span>
+          </span>
+        </a>
+        <nav class="hidden items-center gap-7 text-sm text-slate-600 md:flex" aria-label="Main navigation">
+          <a class="transition hover:text-ink" href="#services">Services</a>
+          <a class="transition hover:text-ink" href="#stack">Tech stack</a>
+          <a class="transition hover:text-ink" href="#how-it-works">How it works</a>
+          <a class="rounded-full bg-ink px-4 py-2 font-medium text-white transition hover:bg-slate-700" href="#contact">Talk to us</a>
+        </nav>
+        <a class="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white md:hidden" href="#services">Explore</a>
+      </div>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer id="contact" class="border-t border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+        <p>Portfolio demo by Ahmad Zarei · Flask, Jinja and Tailwind CSS.</p>
+        <a class="font-medium text-ink hover:underline" href="mailto:zarei.ahmad1992@gmail.com">zarei.ahmad1992@gmail.com</a>
+      </div>
+    </footer>
+  </body>
+</html>

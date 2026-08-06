@@ -1,0 +1,15 @@
+/* Small project-specific layer on top of Tailwind. */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #c7d2fe;
+  color: #182230;
+}
+
+/* Keep focus states visible for keyboard users. */
+:focus-visible {
+  outline: 3px solid #818cf8;
+  outline-offset: 3px;
+}

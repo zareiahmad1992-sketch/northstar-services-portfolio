@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% from "_service_card.html" import service_card %}
+
+{% block title %}Northstar Services | Service catalogue demo{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden bg-white">
+  <div class="mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
+    <div class="max-w-2xl self-center">
+      <p class="mb-5 inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700">
+        <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
+        Clear plans for busy teams
+      </p>
+      <h1 class="text-4xl font-bold tracking-tight text-ink sm:text-6xl">A simple service catalogue for busy teams.</h1>
+      <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">Browse a few focused services, compare what they include, and choose a practical next step.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#services" class="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">View services</a>
+        <a href="#how-it-works" class="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-ink hover:text-ink">How it works</a>
+      </div>
+    </div>
+    <div class="relative rounded-[2rem] bg-ink p-5 shadow-2xl shadow-slate-300/50 sm:p-7">
+      <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-400/30 blur-2xl"></div>
+      <div class="relative rounded-3xl bg-white/10 p-5 ring-1 ring-white/15 sm:p-6">
+        <div class="flex items-center justify-between text-xs text-slate-300">
+          <span>THIS MONTH</span>
+          <span class="rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200">On track</span>
+        </div>
+        <div class="mt-8 grid grid-cols-2 gap-3">
+          <div class="rounded-2xl bg-white p-4"><p class="text-xs text-slate-500">Active projects</p><p class="mt-2 text-3xl font-bold text-ink">08</p></div>
+          <div class="rounded-2xl bg-indigo-400 p-4 text-white"><p class="text-xs text-indigo-100">Time saved</p><p class="mt-2 text-3xl font-bold">42h</p></div>
+        </div>
+        <div class="mt-3 rounded-2xl bg-white p-4">
+          <div class="flex items-center justify-between"><p class="text-sm font-semibold text-ink">Weekly progress</p><p class="text-xs text-slate-500">74%</p></div>
+          <div class="mt-4 h-3 overflow-hidden rounded-full bg-slate-100"><div class="h-full w-3/4 rounded-full bg-emerald-400"></div></div>
+          <div class="mt-4 flex justify-between text-xs text-slate-400"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+  <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+    <div>
+      <p class="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">Available services</p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-ink">A few practical ways to get started.</h2>
+    </div>
+    <p class="max-w-md text-sm leading-6 text-slate-500">Each service is designed to be clear, focused, and easy to adapt to the way your team already works.</p>
+  </div>
+
+  <form class="mt-8 flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:flex-row" method="get" action="{{ url_for('index') }}" aria-label="Filter services">
+    <label class="sr-only" for="search">Search services</label>
+    <input id="search" name="q" value="{{ search_term }}" class="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none ring-indigo-500 transition placeholder:text-slate-400 focus:bg-white focus:ring-2" placeholder="Search by service or category" />
+    <label class="sr-only" for="category">Filter by category</label>
+    <select id="category" name="category" class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500">
+      <option value="All">All categories</option>
+      {% for category in categories %}
+        <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>
+      {% endfor %}
+    </select>
+    <button class="rounded-2xl bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700" type="submit">Filter</button>
+  </form>
+  <p class="mt-4 text-sm text-slate-500" aria-live="polite">Showing {{ services|length }} service{% if services|length != 1 %}s{% endif %}.</p>
+
+  {% if services %}
+    <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {% for service in services %}
+        {{ service_card(service) }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="mt-8 rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center">
+      <p class="font-semibold text-ink">No services found.</p>
+      <p class="mt-2 text-sm text-slate-500">Try another search or clear the filters.</p>
+      <a class="mt-5 inline-block text-sm font-semibold text-indigo-600 hover:underline" href="{{ url_for('index') }}">Clear filters</a>
+    </div>
+  {% endif %}
+</section>
+
+<section id="stack" class="border-y border-slate-200 bg-white">
+  <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-[0.2em] text-indigo-600">What this demo shows</p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-ink">A small stack with room to grow.</h2>
+      <p class="mt-4 text-slate-600">The content comes from JSON and the page is assembled with reusable Jinja templates. That keeps the markup readable and makes future changes easier.</p>
+    </div>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200"><p class="text-sm font-bold text-indigo-700">01</p><h3 class="mt-5 font-semibold text-ink">Flask + Jinja</h3><p class="mt-2 text-sm leading-6 text-slate-600">Template inheritance, loops, conditions, and server-side filtering.</p></div>
+      <div class="rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200"><p class="text-sm font-bold text-emerald-700">02</p><h3 class="mt-5 font-semibold text-ink">Tailwind CSS</h3><p class="mt-2 text-sm leading-6 text-slate-600">Responsive utility classes with a small custom CSS layer.</p></div>
+      <div class="rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200"><p class="text-sm font-bold text-amber-700">03</p><h3 class="mt-5 font-semibold text-ink">JSON content</h3><p class="mt-2 text-sm leading-6 text-slate-600">Service cards are driven by structured data instead of hard-coded HTML.</p></div>
+      <div class="rounded-3xl bg-slate-50 p-5 ring-1 ring-slate-200"><p class="text-sm font-bold text-rose-700">04</p><h3 class="mt-5 font-semibold text-ink">Accessible UI</h3><p class="mt-5 text-sm leading-6 text-slate-600">Semantic labels, keyboard-visible focus, responsive layout, and clear states.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how-it-works" class="bg-ink text-white">
+  <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+    <div class="max-w-xl"><p class="text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Simple by design</p><h2 class="mt-2 text-3xl font-bold">A small process that keeps the work moving.</h2></div>
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      <div class="rounded-3xl bg-white/10 p-6 ring-1 ring-white/10"><span class="text-sm font-bold text-indigo-300">01</span><h3 class="mt-8 text-lg font-semibold">Choose a focus</h3><p class="mt-3 text-sm leading-6 text-slate-300">Start with the service that matches the next important step for your team.</p></div>
+      <div class="rounded-3xl bg-white/10 p-6 ring-1 ring-white/10"><span class="text-sm font-bold text-emerald-300">02</span><h3 class="mt-8 text-lg font-semibold">Set the direction</h3><p class="mt-3 text-sm leading-6 text-slate-300">We agree on the outcome, timeline, and information needed to begin.</p></div>
+      <div class="rounded-3xl bg-white/10 p-6 ring-1 ring-white/10"><span class="text-sm font-bold text-amber-300">03</span><h3 class="mt-8 text-lg font-semibold">Make progress visible</h3><p class="mt-3 text-sm leading-6 text-slate-300">You get practical outputs and a clear view of what happens next.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
