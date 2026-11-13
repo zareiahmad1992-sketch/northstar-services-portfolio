@@ -1,8 +1,11 @@
 # Northstar Services — Jinja + Tailwind template demo
 
+**🌐 Live Demo:** https://northstar-services-portfolio.onrender.com
+> Free instance on Render may sleep after inactivity — first load can take ~30-50s.
+
 A small, responsive service catalogue built to demonstrate structured frontend templating with **Flask, Jinja, Tailwind CSS, and JSON-driven content**.
 
-![Northstar Services homepage](docs/homepage.png)
+[![Northstar Services homepage](https://github.com/zareiahmad1992-sketch/northstar-services-portfolio/raw/main/docs/homepage.png)](https://github.com/zareiahmad1992-sketch/northstar-services-portfolio/blob/main/docs/homepage.png)
 
 ## What the project demonstrates
 
@@ -23,11 +26,12 @@ A small, responsive service catalogue built to demonstrate structured frontend t
 - **Tailwind CSS** — responsive styling and layout
 - **JSON** — lightweight content/data source
 - **HTML/CSS** — semantic and responsive UI
+- **Gunicorn** — production WSGI server (Render)
 
 ## Project structure
 
-```text
-pome-template-demo/
+```
+northstar-services-portfolio/
 ├── app.py
 ├── data/
 │   └── services.json
@@ -40,6 +44,8 @@ pome-template-demo/
 │   ├── base.html
 │   └── index.html
 ├── requirements.txt
+├── Procfile
+├── .gitattributes
 └── README.md
 ```
 
@@ -54,9 +60,19 @@ python3 app.py
 
 Then open:
 
-```text
+```
 http://127.0.0.1:5000/
 ```
+
+## QA Notes — How to test
+
+Manual checks for this demo:
+
+1. **Homepage** — 6 service cards load from `data/services.json` (prices, categories, durations visible)
+2. **Search** — `GET /?q=Growth` filters by name/description/category (case-insensitive). Try `q=Growth` → 2 results
+3. **Category filter** — `GET /?category=Operations` → 2 results, `All` returns all 6
+4. **Empty state** — `GET /?q=xyz123` shows "No services found."
+5. **Responsive** — check header nav collapses on mobile, cards stack correctly
 
 ## Design decisions
 
@@ -68,16 +84,18 @@ The interface uses semantic sections, form labels, clear focus states, responsiv
 
 The project includes a `Procfile` for platforms such as Render or Railway:
 
-```text
+```
 web: gunicorn app:app
 ```
 
 The Flask app reads the `PORT` environment variable when it is available and binds to `0.0.0.0`, so it can run locally or on a cloud platform.
+
+Live deployment: https://northstar-services-portfolio.onrender.com
 
 ## Possible next improvements
 
 - Add a service details page using a dynamic slug
 - Add a contact form with validation
 - Move Tailwind from the browser CDN to a local production build
-- Add automated tests for routes, filtering, and template rendering
+- Add automated tests for routes, filtering, and template rendering (Playwright + pytest)
 - Add a CMS or API as the content source
